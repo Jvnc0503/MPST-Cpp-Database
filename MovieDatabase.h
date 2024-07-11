@@ -19,7 +19,7 @@ public:
         return instance;
     }
 
-    vector<string> parseRow(string line) {
+    static vector<string> parseRow(const string& line) {
         vector<string> row;
         stringstream ss(line);
         bool insideQuote = false;
@@ -42,7 +42,7 @@ public:
         return std::move(row);
     }
 
-    void loadCSV(string path) {
+    void loadCSV(const string& path) {
         MovieBuilder builder;
         string id, title, plot, tags;
         ifstream csv(path);

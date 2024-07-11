@@ -6,4 +6,6 @@ set(CMAKE_CXX_STANDARD 23)
 add_executable(MPST_Cpp_Database main.cpp
         Movie.h
         MovieBuilder.h
-        MovieDatabase.h)
+        MovieDatabase.h
+        Node.h
+        Trie.h)

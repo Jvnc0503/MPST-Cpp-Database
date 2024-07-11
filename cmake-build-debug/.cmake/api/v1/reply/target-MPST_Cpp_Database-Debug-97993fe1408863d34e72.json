@@ -98,7 +98,9 @@
 			[
 				1,
 				2,
-				3
+				3,
+				4,
+				5
 			]
 		}
 	],
@@ -123,6 +125,16 @@
 		{
 			"backtrace" : 1,
 			"path" : "MovieDatabase.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Node.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Trie.h",
 			"sourceGroupIndex" : 1
 		}
 	],
