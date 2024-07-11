@@ -1,0 +1,3 @@
+C:/Users/Jvnc/Documents/Programming-III/MPST-Cpp-Database/cmake-build-debug/CMakeFiles/MPST_Cpp_Database.dir
+C:/Users/Jvnc/Documents/Programming-III/MPST-Cpp-Database/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Jvnc/Documents/Programming-III/MPST-Cpp-Database/cmake-build-debug/CMakeFiles/rebuild_cache.dir
