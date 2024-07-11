@@ -3,4 +3,7 @@ project(MPST_Cpp_Database)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(MPST_Cpp_Database main.cpp)
+add_executable(MPST_Cpp_Database main.cpp
+        Movie.h
+        MovieBuilder.h
+        MovieDatabase.h)
