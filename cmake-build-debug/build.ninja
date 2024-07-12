@@ -51,7 +51,7 @@ build cmake_object_order_depends_target_MPST_Cpp_Database: phony || CMakeFiles/M
 
 build CMakeFiles/MPST_Cpp_Database.dir/main.cpp.obj: CXX_COMPILER__MPST_Cpp_Database_unscanned_Debug C$:/Users/Jvnc/Documents/Programming-III/MPST-Cpp-Database/main.cpp || cmake_object_order_depends_target_MPST_Cpp_Database
   DEP_FILE = CMakeFiles\MPST_Cpp_Database.dir\main.cpp.obj.d
-  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  FLAGS = -pthread -g -std=gnu++23 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\MPST_Cpp_Database.dir
   OBJECT_FILE_DIR = CMakeFiles\MPST_Cpp_Database.dir
 
@@ -64,7 +64,7 @@ build CMakeFiles/MPST_Cpp_Database.dir/main.cpp.obj: CXX_COMPILER__MPST_Cpp_Data
 # Link the executable MPST_Cpp_Database.exe
 
 build MPST_Cpp_Database.exe: CXX_EXECUTABLE_LINKER__MPST_Cpp_Database_Debug CMakeFiles/MPST_Cpp_Database.dir/main.cpp.obj
-  FLAGS = -g
+  FLAGS = -pthread -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\MPST_Cpp_Database.dir
   POST_BUILD = cd .

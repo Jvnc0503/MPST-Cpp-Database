@@ -19,7 +19,7 @@ public:
         return instance;
     }
 
-    static vector<string> parseRow(const string& line) {
+    vector<string> parseRow(const string& line) {
         vector<string> row;
         stringstream ss(line);
         bool insideQuote = false;
