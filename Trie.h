@@ -7,7 +7,8 @@
 #include <algorithm>
 #include <future>
 #include <ranges>
-using std::vector, std::istringstream, std::string, std::tolower, std::locale, std::future, std::async;
+using std::vector, std::istringstream, std::string, std::tolower, std::locale,
+std::future, std::async, std::ranges::transform, std::ranges::remove_if, std::ispunct;
 
 class Trie {
     Node* root = nullptr;
@@ -17,11 +18,11 @@ class Trie {
         istringstream stream(text);
         string word;
         while(stream >> word) {
-            word.erase(std::ranges::remove_if(word, [](const unsigned char c) {
-                return std::ispunct(c);
+            word.erase(remove_if(word, [](const unsigned char c) {
+                return ispunct(c);
             }).begin(), word.end());
 
-            std::ranges::transform(word, word.begin(), [](const unsigned char c) {
+            transform(word, word.begin(), [](const unsigned char c) {
                 return std::tolower(c);
             });
 
@@ -71,7 +72,7 @@ public:
         vector<future<unordered_set<string>>> futures;
 
         for (const string& word: words) {
-            futures.emplace_back(async(&search, this, word));
+            futures.emplace_back(async(&Trie::search, this, word));
         }
 
         unordered_set<string> result;

@@ -8,10 +8,12 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include "Trie.h"
 using std::unordered_map, std::string, std::vector, std::ifstream, std::istringstream, std::stringstream;
 
 class MovieDatabase {
     unordered_map<string, Movie> movies;
+    Trie* trie = new Trie();
     MovieDatabase() = default;
 public:
     static MovieDatabase& getInstance() {
@@ -64,6 +66,8 @@ public:
                 .setTags(std::move(tags));
 
             movies.emplace(std::move(id), builder.build());
+            trie->insert(id, title);
+            trie->insert(id, plot);
         }
     }
 };
