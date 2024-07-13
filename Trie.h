@@ -31,13 +31,6 @@ class Trie {
         return tokens;
     }
 
-    static void deleteNodes(const Node* node) {
-        for(const auto &val: node->children | std::views::values) {
-            deleteNodes(val);
-        }
-        delete node;
-    }
-
 public:
     Trie(): root(new Node('\0')) {}
 
@@ -56,7 +49,7 @@ public:
         }
     }
 
-    unordered_set<string> search(const string& word) const {
+    [[nodiscard]] unordered_set<string> search(const string& word) const {
         if(!root) {
             return {};
         }
@@ -88,7 +81,7 @@ public:
     }
 
     ~Trie() {
-        deleteNodes(root);
+        delete root;
     }
 };
 

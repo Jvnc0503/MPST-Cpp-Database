@@ -12,6 +12,11 @@ struct Node {
     unordered_set<string> movieIds;
 
     explicit Node(const char letter): letter(letter) {}
+    ~Node() {
+        for (auto& child : children) {
+            delete child.second;
+        }
+    }
 };
 
 #endif
