@@ -21,7 +21,7 @@ public:
         return instance;
     }
 
-    vector<string> parseRow(const string& line) {
+    static vector<string> parseRow(const string& line) {
         vector<string> row;
         stringstream ss(line);
         bool insideQuote = false;
@@ -41,33 +41,30 @@ public:
         }
         row.emplace_back(std::move(cell));
 
-        return std::move(row);
+        return row;
     }
 
     void loadCSV(const string& path) {
         MovieBuilder builder;
-        string id, title, plot, tags;
         ifstream csv(path);
         string line;
 
+        // Skip the header
         getline(csv, line);
-        vector<string> headers = parseRow(line);
+        line.clear();
 
         while(getline(csv, line)) {
             vector<string> cells = parseRow(line);
 
-            id = cells[0];
-            title = cells[1];
-            plot = cells[2];
-            tags = cells[3];
+            builder.setTitle(cells[1])
+                .setPlot(cells[2])
+                .setTags(cells[3]);
 
-            builder.setTitle(std::move(title))
-                .setPlot(std::move(plot))
-                .setTags(std::move(tags));
+            trie->insert(cells[0], builder.getTitle());
+            trie->insert(cells[0], builder.getPlot());
+            movies.emplace(cells[0], builder.build());
 
-            movies.emplace(std::move(id), builder.build());
-            trie->insert(id, title);
-            trie->insert(id, plot);
+            builder.reset();
         }
     }
 };

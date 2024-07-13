@@ -13,7 +13,7 @@ std::future, std::async, std::ranges::transform, std::ranges::remove_if, std::is
 class Trie {
     Node* root = nullptr;
 
-    vector<string> tokenize(const string& text) {
+    static vector<string> tokenize(const string& text) {
         vector<string> tokens;
         istringstream stream(text);
         string word;
@@ -28,12 +28,12 @@ class Trie {
 
             tokens.emplace_back(std::move(word));
         }
-        return std::move(tokens);
+        return tokens;
     }
 
-    void deleteNodes(const Node* node) {
-        for(auto& child: node->children) {
-            deleteNodes(child.second);
+    static void deleteNodes(const Node* node) {
+        for(const auto &val: node->children | std::views::values) {
+            deleteNodes(val);
         }
         delete node;
     }
@@ -41,7 +41,7 @@ class Trie {
 public:
     Trie(): root(new Node('\0')) {}
 
-    void insert(const string& id, const string& text) {
+    void insert(const string& id, const string& text) const {
         vector<string> words = tokenize(text);
 
         for (const string& word: words) {
@@ -56,7 +56,11 @@ public:
         }
     }
 
-    unordered_set<string> search(const string& word) {
+    unordered_set<string> search(const string& word) const {
+        if(!root) {
+            return {};
+        }
+
         Node* current = root;
         for (const char& c: word) {
             if (!current->children.contains(c)) {
@@ -77,8 +81,7 @@ public:
 
         unordered_set<string> result;
         for (auto& future: futures) {
-            unordered_set<string> wordResult = future.get();
-            result.insert(wordResult.begin(), wordResult.end());
+            result.insert(future.get().begin(), future.get().end());
         }
 
         return result;

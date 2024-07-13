@@ -12,30 +12,52 @@ class MovieBuilder {
     string plot;
     unordered_set<string> tags;
 public:
-    MovieBuilder& setTitle(string t) {
-        this->title = std::move(t);
+    MovieBuilder& setTitle(const string& t) {
+        this->title = t;
         return *this;
     }
 
-    MovieBuilder& setPlot(string p) {
+    MovieBuilder& setPlot(const string& p) {
+        string processedPlot = p;
         if (!p.empty() && p.front() == '"' && p.back() == '"') {
-            p = p.substr(1, p.size() - 2);
+            processedPlot = p.substr(1, p.size() - 2);
         }
-        this->plot = std::move(p);
+        this->plot = processedPlot;
         return *this;
     }
 
-    MovieBuilder& setTags(string t) {
-        istringstream tagStream(std::move(t));
+    MovieBuilder& setTags(const string& ts) {
+        istringstream tagStream(ts);
         string tag;
         while(getline(tagStream, tag, ',')) {
-            this->tags.insert(std::move(t));
+            tag.erase(0, tag.find_first_not_of(' '));
+            tag.erase(tag.find_last_not_of(' ') + 1);
+            this->tags.insert(std::move(tag));
         }
         return *this;
     }
 
     Movie build() {
         return {std::move(title), std::move(plot), std::move(tags)};
+    }
+
+    MovieBuilder& reset() {
+        this->title.clear();
+        this->plot.clear();
+        this->tags.clear();
+        return *this;
+    }
+
+    const string& getTitle() const {
+        return this->title;
+    }
+
+    const string& getPlot() const {
+        return this->plot;
+    }
+
+    const unordered_set<string>& getTags() const {
+        return this->tags;
     }
 };
 
