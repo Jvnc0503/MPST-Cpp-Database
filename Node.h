@@ -8,7 +8,7 @@ using std::unordered_map, std::unordered_set, std::string;
 
 struct Node {
     unordered_map<char, Node*> children;
-    unordered_set<string> movieIds;
+    unordered_set<int> movieIds;
 
     Node() = default;
     ~Node() {

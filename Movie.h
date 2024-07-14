@@ -6,11 +6,16 @@
 using std::string, std::unordered_set;
 
 class Movie {
+    int id;
     string title;
     string plot;
     unordered_set<string> tags;
 public:
-    Movie(string title, string plot, unordered_set<string> tags): title(std::move(title)), plot (std::move(plot)), tags(std::move(tags)) {}
+    Movie(const int id, string title, string plot, unordered_set<string> tags): id(id), title(std::move(title)), plot (std::move(plot)), tags(std::move(tags)) {}
+
+    const int& getId() const {
+        return this->id;
+    }
 
     const string& getTitle() const {
         return this->title;

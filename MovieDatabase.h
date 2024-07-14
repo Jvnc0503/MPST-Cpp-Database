@@ -12,8 +12,8 @@
 using std::unordered_map, std::string, std::vector, std::ifstream, std::istringstream, std::stringstream;
 
 class MovieDatabase {
-    unordered_map<string, Movie> movies;
-    unordered_map<string, unordered_set<string>> tagMap;
+    unordered_map<int, Movie> movies;
+    unordered_map<string, unordered_set<int>> tagMap;
     Trie trie;
     MovieDatabase() = default;
     ~MovieDatabase() = default;
@@ -58,27 +58,28 @@ public:
         while(getline(csv, line)) {
             vector<string> cells = parseRow(line);
 
-            builder.setTitle(cells[1])
+            builder.setId(cells[0])
+                .setTitle(cells[1])
                 .setPlot(cells[2])
                 .setTags(cells[3]);
 
-            trie.insert(cells[0], builder.getTitle());
-            trie.insert(cells[0], builder.getPlot());
+            trie.insert(builder.getId(), builder.getTitle());
+            trie.insert(builder.getId(), builder.getPlot());
 
             for (const auto& tag : builder.getTags()) {
-                tagMap[tag].insert(cells[0]);
+                tagMap[tag].insert(builder.getId());
             }
 
-            movies.emplace(cells[0], builder.build());
+            movies.emplace(builder.getId(), builder.build());
             builder.reset();
         }
         csv.close();
     }
 
     vector<Movie> searchByText(const string& text) {
-        const unordered_set<string> ids = trie.searchByText(text);
+        const unordered_set<int> ids = trie.searchByText(text);
         vector<Movie> result;
-        for (const auto& id : ids) {
+        for (const int& id : ids) {
             result.emplace_back(movies[id]);
         }
         return result;
@@ -86,8 +87,10 @@ public:
 
     vector<Movie> searchByTag(const string& tag) {
         vector<Movie> result;
-        for (const auto& id : tagMap[tag]) {
-            result.emplace_back(movies[id]);
+        if (tagMap.contains(tag)) {
+            for (const int& id : tagMap[tag]) {
+                result.emplace_back(movies[id]);
+            }
         }
         return result;
     }

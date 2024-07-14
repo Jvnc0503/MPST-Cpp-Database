@@ -5,13 +5,21 @@
 #include <unordered_set>
 #include <sstream>
 #include "Movie.h"
-using std::string, std::unordered_set, std::istringstream, std::getline;
+using std::string, std::unordered_set, std::istringstream, std::getline, std::stoi;
 
 class MovieBuilder {
+    int id;
     string title;
     string plot;
     unordered_set<string> tags;
 public:
+    MovieBuilder(): id(0) {}
+
+    MovieBuilder& setId(const string& i) {
+        this->id = stoi(i.substr(2));
+        return *this;
+    }
+
     MovieBuilder& setTitle(const string& t) {
         this->title = t;
         return *this;
@@ -38,13 +46,18 @@ public:
     }
 
     Movie build() {
-        return {std::move(title), std::move(plot), std::move(tags)};
+        return {id, std::move(title), std::move(plot), std::move(tags)};
     }
 
     void reset() {
+        this->id = 0;
         this->title.clear();
         this->plot.clear();
         this->tags.clear();
+    }
+
+    const int& getId() const {
+        return this->id;
     }
 
     const string& getTitle() const {

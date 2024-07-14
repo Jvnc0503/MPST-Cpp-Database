@@ -37,7 +37,7 @@ public:
         delete root;
     }
 
-    void insert(const string& id, const string& text) const {
+    void insert(const int& id, const string& text) const {
         Node* current = root;
         for (const string& word: tokenize(text)) {
             for (char c: word) {
@@ -50,7 +50,7 @@ public:
         }
     }
 
-    [[nodiscard]] unordered_set<string> searchByWord(const string& word) const {
+    [[nodiscard]] unordered_set<int> searchByWord(const string& word) const {
         Node* current = root;
         for (const char& c: word) {
             if (!current->children.contains(c)) {
@@ -61,14 +61,14 @@ public:
         return current->movieIds;
     }
 
-    unordered_set<string> searchByText(const string& text) {
-        vector<future<unordered_set<string>>> futures;
+    unordered_set<int> searchByText(const string& text) {
+        vector<future<unordered_set<int>>> futures;
 
         for (const string& word: tokenize(text)) {
             futures.emplace_back(async(&Trie::searchByWord, this, word));
         }
 
-        unordered_set<string> result;
+        unordered_set<int> result;
         for (auto& future: futures) {
             result.insert(future.get().begin(), future.get().end());
         }
