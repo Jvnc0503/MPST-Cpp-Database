@@ -7,14 +7,13 @@
 using std::unordered_map, std::unordered_set, std::string;
 
 struct Node {
-    char letter;
     unordered_map<char, Node*> children;
     unordered_set<string> movieIds;
 
-    explicit Node(const char letter): letter(letter) {}
+    Node() = default;
     ~Node() {
-        for (auto& child : children) {
-            delete child.second;
+        for (auto& pair : children) {
+            delete pair.second;
         }
     }
 };

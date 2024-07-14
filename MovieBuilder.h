@@ -41,11 +41,10 @@ public:
         return {std::move(title), std::move(plot), std::move(tags)};
     }
 
-    MovieBuilder& reset() {
+    void reset() {
         this->title.clear();
         this->plot.clear();
         this->tags.clear();
-        return *this;
     }
 
     const string& getTitle() const {

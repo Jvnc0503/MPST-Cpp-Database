@@ -11,7 +11,7 @@ using std::vector, std::istringstream, std::string, std::tolower, std::locale,
 std::future, std::async, std::ranges::transform, std::ranges::remove_if, std::ispunct;
 
 class Trie {
-    Node* root = nullptr;
+    Node* root;
 
     static vector<string> tokenize(const string& text) {
         vector<string> tokens;
@@ -32,16 +32,17 @@ class Trie {
     }
 
 public:
-    Trie(): root(new Node('\0')) {}
+    Trie(): root (new Node()) {}
+    ~Trie() {
+        delete root;
+    }
 
     void insert(const string& id, const string& text) const {
-        vector<string> words = tokenize(text);
-
-        for (const string& word: words) {
-            Node* current = root;
+        Node* current = root;
+        for (const string& word: tokenize(text)) {
             for (char c: word) {
                 if (!current->children.contains(c)) {
-                    current->children[c] = new Node(c);
+                    current->children[c] = new Node();
                 }
                 current = current->children[c];
                 current->movieIds.insert(id);
@@ -49,11 +50,7 @@ public:
         }
     }
 
-    [[nodiscard]] unordered_set<string> search(const string& word) const {
-        if(!root) {
-            return {};
-        }
-
+    unordered_set<string> searchByWord(const string& word) {
         Node* current = root;
         for (const char& c: word) {
             if (!current->children.contains(c)) {
@@ -64,12 +61,11 @@ public:
         return current->movieIds;
     }
 
-    unordered_set<string> concurrentSearch(const string& text) {
-        vector<string> words = tokenize(text);
+    unordered_set<string> searchByText(const string& text) {
         vector<future<unordered_set<string>>> futures;
 
-        for (const string& word: words) {
-            futures.emplace_back(async(&Trie::search, this, word));
+        for (const string& word: tokenize(text)) {
+            futures.emplace_back(async(&Trie::searchByWord, this, word));
         }
 
         unordered_set<string> result;
@@ -78,10 +74,6 @@ public:
         }
 
         return result;
-    }
-
-    ~Trie() {
-        delete root;
     }
 };
 

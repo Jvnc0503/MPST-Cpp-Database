@@ -13,13 +13,9 @@ using std::unordered_map, std::string, std::vector, std::ifstream, std::istrings
 
 class MovieDatabase {
     unordered_map<string, Movie> movies;
-    Trie* trie = new Trie();
+    unordered_map<string, unordered_set<string>> tagMap;
+    Trie trie;
     MovieDatabase() = default;
-public:
-    static MovieDatabase& getInstance() {
-        static MovieDatabase instance;
-        return instance;
-    }
 
     static vector<string> parseRow(const string& line) {
         vector<string> row;
@@ -43,6 +39,11 @@ public:
 
         return row;
     }
+public:
+    static MovieDatabase& getInstance() {
+        static MovieDatabase instance;
+        return instance;
+    }
 
     void loadCSV(const string& path) {
         MovieBuilder builder;
@@ -60,12 +61,34 @@ public:
                 .setPlot(cells[2])
                 .setTags(cells[3]);
 
-            trie->insert(cells[0], builder.getTitle());
-            trie->insert(cells[0], builder.getPlot());
-            movies.emplace(cells[0], builder.build());
+            trie.insert(cells[0], builder.getTitle());
+            trie.insert(cells[0], builder.getPlot());
 
+            for (const auto& tag : builder.getTags()) {
+                tagMap[tag].insert(cells[0]);
+            }
+
+            movies.emplace(cells[0], builder.build());
             builder.reset();
         }
+        csv.close();
+    }
+
+    vector<Movie> searchByText(const string& text) {
+        const unordered_set<string> ids = trie.searchByText(text);
+        vector<Movie> result;
+        for (const auto& id : ids) {
+            result.emplace_back(movies[id]);
+        }
+        return result;
+    }
+
+    vector<Movie> searchByTag(const string& tag) {
+        vector<Movie> result;
+        for (const auto& id : tagMap[tag]) {
+            result.emplace_back(movies[id]);
+        }
+        return result;
     }
 };
 
