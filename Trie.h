@@ -50,7 +50,7 @@ public:
         }
     }
 
-    unordered_set<string> searchByWord(const string& word) {
+    [[nodiscard]] unordered_set<string> searchByWord(const string& word) const {
         Node* current = root;
         for (const char& c: word) {
             if (!current->children.contains(c)) {
