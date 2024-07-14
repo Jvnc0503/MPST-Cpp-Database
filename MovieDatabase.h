@@ -16,6 +16,7 @@ class MovieDatabase {
     unordered_map<string, unordered_set<string>> tagMap;
     Trie trie;
     MovieDatabase() = default;
+    ~MovieDatabase() = default;
 
     static vector<string> parseRow(const string& line) {
         vector<string> row;
