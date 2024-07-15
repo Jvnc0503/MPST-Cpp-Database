@@ -119,6 +119,10 @@ int main() {
                 break;
             }
             case 5: {
+                if(userManager.getLikes().empty()) {
+                    cout << "Please add some movies to likes first\n";
+                    break;
+                }
                 cout << "Recommendations:\n";
                 displayMovies(database.getRecommendations(userManager.getTagPreferences()));
                 break;
