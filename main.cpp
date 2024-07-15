@@ -18,7 +18,7 @@ void handleMovieSelection(const Movie& movie) {
     while (choice != 3) {
         cout << "Selected movie: \n";
         displayMovieDetails(movie);
-        cout << "1. Add to likes\n2. Add to watch later\n3. Back\n";
+        cout << "\nOptions:\n1. Add to likes\n2. Add to watch later\n3. Back\n";
         cin >> choice;
         if (choice == 1) {
             userManager.addToLikes(movie);
@@ -53,7 +53,7 @@ void displayMovies(const vector<Movie>& movies) {
                 cout << "What movie would you like to select?\n";
                 int select;
                 cin >> select;
-                if (select >= 1 && select <= i) {
+                if (select >= 1 && select < i) {
                     handleMovieSelection(*(iter - 6 + select));
                 }
                 else {
@@ -85,7 +85,7 @@ int main() {
     const UserManager& userManager = UserManager::getInstance();
 
     while(true) {
-        cout << "\nMenu:\n1. Search by text\n2. Search by tag\n3. Show likes\n4. Show Watch Later\n5. Show recomendations\n6. Exit\nEnter your choice: ";
+        cout << "\nMenu:\n1. Search by text\n2. Search by tag\n3. Show likes\n4. Show Watch Later\n5. Show recomendations\n6. Exit\n\nEnter your choice: ";
         int choice;
         cin >> choice;
         cout << '\n';

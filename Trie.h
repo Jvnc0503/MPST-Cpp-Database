@@ -6,8 +6,10 @@
 #include <string>
 #include <algorithm>
 #include <cctype>
+#include <future>
 #include "Node.h"
-using std::unordered_map, std::vector, std::string, std::tolower, std::locale, std::isalnum, std::erase_if;
+using std::unordered_map, std::vector, std::string, std::tolower, std::isalnum, std::erase_if, std::future,
+std::launch, std::async, std::ranges::transform, std::ranges::sort, std::ranges::unique;
 
 class Trie {
     Node* root;
@@ -49,7 +51,7 @@ public:
         string word;
         while (iss >> word) {
             erase_if(word, [](const char c) { return !isalnum(c); });
-            std::ranges::transform(word, word.begin(),
+            transform(word, word.begin(),
                                    [](const unsigned char c){ return tolower(c); });
             if (!word.empty()) {
                 insertAux(root, word, movieId, 0);
@@ -57,20 +59,37 @@ public:
         }
     }
 
-    vector<int> search(const std::string& text) const {
+    [[nodiscard]] vector<int> search(const string& text) const {
         vector<int> results;
+        vector<string> words;
         istringstream iss(text);
         string word;
+
         while (iss >> word) {
             erase_if(word, [](const char c) { return !isalnum(c); });
-            std::ranges::transform(word, word.begin(),
+            transform(word, word.begin(),
                                    [](const unsigned char c){ return tolower(c); });
             if (!word.empty()) {
-                searchAux(root, word, results, 0);
+                words.emplace_back(word);
             }
         }
-        std::ranges::sort(results);
-        results.erase(std::ranges::unique(results).begin(), results.end());
+
+        vector<future<vector<int>>> futures;
+        for (const auto& w : words) {
+            futures.push_back(async(launch::async, [this, &w]() {
+                vector<int> wordResults;
+                searchAux(root, w, wordResults, 0);
+                return wordResults;
+            }));
+        }
+
+        for (auto& f : futures) {
+            const auto& res = f.get();
+            results.insert(results.end(), res.begin(), res.end());
+        }
+
+        sort(results);
+        results.erase(unique(results).begin(), results.end());
         return results;
     }
 };
