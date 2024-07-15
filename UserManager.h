@@ -8,12 +8,20 @@
 using std::unordered_set, std::unordered_map, std::string;
 
 class UserManager {
+    static UserManager* instance;
     unordered_set<int> watchLater;
     unordered_set<int> likes;
     unordered_map<string, int> tagPreferences;
 
     UserManager() = default;
 public:
+    static UserManager* getInstance() {
+        if (!instance) {
+            instance = new UserManager();
+        }
+        return instance;
+    }
+
     void addToWatchLater(const Movie& movie) {
         watchLater.emplace(movie.getId());
     }
