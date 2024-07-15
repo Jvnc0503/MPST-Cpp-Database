@@ -88,13 +88,14 @@ int main() {
         cout << "\nMenu:\n1. Search by text\n2. Search by tag\n3. Show likes\n4. Show Watch Later\n5. Show recomendations\n6. Exit\nEnter your choice: ";
         int choice;
         cin >> choice;
+        cout << '\n';
         switch (choice) {
             case 1: {
                 cout << "Enter text to search: ";
                 string text;
                 cin.ignore();
                 getline(cin, text);
-                cout << "Results for: " << text << '\n';
+                cout << "\nResults for: " << text << '\n';
                 displayMovies(database.searchByText(text));
                 break;
             }
@@ -102,7 +103,7 @@ int main() {
                 cout << "Enter tag: ";
                 string tag;
                 cin >> tag;
-                cout << "Results for: " << tag << '\n';
+                cout << "\nResults for: " << tag << '\n';
                 displayMovies(database.searchByTag(tag));
                 break;
             }
