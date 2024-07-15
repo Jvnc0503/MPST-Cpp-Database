@@ -46,24 +46,29 @@ void displayMovies(const vector<Movie>& movies) {
                 cout << "4. Next\n";
             }
             cin >> choice;
-            if (choice == 1) {
-                cout << "What movie would you like to select?\n";
-                cin >> choice;
-                if (choice >= 1 && choice <=5) {
-                    handleMovieSelection(*(iter - 5 + choice));
-                }
-                else {
+            switch (choice) {
+                case 1:
+                    cout << "What movie would you like to select?\n";
+                    int select;
+                    cin >> select;
+                    if (select >= 1 && select <= 5) {
+                        handleMovieSelection(*(iter - 5 + select));
+                    } else {
+                        cout << "Invalid choice\n";
+                    }
+                    break;
+                case 2:
+                    iter -= 10;
+                    break;
+                case 3:
+                    iter = movies.end();
+                    cout << "Exiting\n";
+                    break;
+                case 4:
+                    break;
+                default:
                     cout << "Invalid choice\n";
-                }
-            }
-            else if (choice == 2) {
-                iter-=10;
-            }
-            else if (choice == 3) {
-                iter = movies.end();
-            }
-            else if (choice != 4) {
-                cout << "Invalid choice\n";
+                    break;
             }
         }
     }
