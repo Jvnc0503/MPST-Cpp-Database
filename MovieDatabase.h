@@ -77,7 +77,7 @@ public:
     }
 
     vector<Movie> searchByText(const string& text) {
-        const unordered_set<int> ids = trie.searchByText(text);
+        const vector<int> ids = trie.search(text);
         vector<Movie> result;
         for (const int& id : ids) {
             result.emplace_back(movies[id]);

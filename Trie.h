@@ -1,79 +1,77 @@
 #ifndef TRIE_H
 #define TRIE_H
 
-#include "Node.h"
+#include <unordered_map>
 #include <vector>
-#include <sstream>
+#include <string>
 #include <algorithm>
-#include <future>
-#include <ranges>
-using std::vector, std::istringstream, std::string, std::tolower, std::locale,
-std::future, std::async, std::ranges::transform, std::ranges::remove_if, std::ispunct;
+#include <cctype>
+#include "Node.h"
+using std::unordered_map, std::vector, std::string, std::tolower, std::locale, std::isalnum, std::erase_if;
 
 class Trie {
     Node* root;
 
-    static vector<string> tokenize(const string& text) {
-        vector<string> tokens;
-        istringstream stream(text);
-        string word;
-        while(stream >> word) {
-            word.erase(remove_if(word, [](const unsigned char c) {
-                return ispunct(c);
-            }).begin(), word.end());
-
-            transform(word, word.begin(), [](const unsigned char c) {
-                return std::tolower(c);
-            });
-
-            tokens.emplace_back(std::move(word));
+    void insert(Node* node, const string& word, const int movieId, const size_t index) {
+        if (index == word.length()) {
+            node->movieIds.push_back(movieId);
+            return;
         }
-        return tokens;
+
+        const char c = tolower(word[index], locale());
+        if (!node->children[c]) {
+            node->children[c] = new Node();
+        }
+        insert(node->children[c], word, movieId, index + 1);
+    }
+
+    void search(Node* node, const string& word, vector<int>& results, const size_t index) const {
+        if (index == word.length()) {
+            results.insert(results.end(), node->movieIds.begin(), node->movieIds.end());
+            return;
+        }
+
+        const char c = tolower(word[index], locale());
+        if (node->children.contains(c)) {
+            search(node->children[c], word, results, index + 1);
+        }
     }
 
 public:
-    Trie(): root (new Node()) {}
+    Trie() : root(new Node()) {}
+
     ~Trie() {
         delete root;
     }
 
-    void insert(const int& id, const string& text) const {
-        Node* current = root;
-        for (const string& word: tokenize(text)) {
-            for (char c: word) {
-                if (!current->children.contains(c)) {
-                    current->children[c] = new Node();
-                }
-                current = current->children[c];
-                current->movieIds.insert(id);
+    void insert(const int movieId, const string& text) {
+        istringstream iss(text);
+        string word;
+        while (iss >> word) {
+            erase_if(word, [](char c) { return !isalnum(c); });
+            std::ranges::transform(word, word.begin(),
+                                   [](unsigned char c){ return tolower(c); });
+            if (!word.empty()) {
+                insert(root, word, movieId, 0);
             }
         }
     }
 
-    [[nodiscard]] unordered_set<int> searchByWord(const string& word) const {
-        Node* current = root;
-        for (const char& c: word) {
-            if (!current->children.contains(c)) {
-                return {};
+    vector<int> search(const std::string& text) const {
+        vector<int> results;
+        istringstream iss(text);
+        string word;
+        while (iss >> word) {
+            std::erase_if(word, [](char c) { return !isalnum(c); });
+            std::ranges::transform(word, word.begin(),
+                                   [](unsigned char c){ return tolower(c); });
+            if (!word.empty()) {
+                search(root, word, results, 0);
             }
-            current = current->children[c];
         }
-        return current->movieIds;
-    }
-
-    unordered_set<int> searchByText(const string& text) {
-        vector<future<unordered_set<int>>> futures;
-
-        for (const string& word: tokenize(text)) {
-            futures.emplace_back(async(&Trie::searchByWord, this, word));
-        }
-
-        unordered_set<int> result;
-        for (auto& future: futures) {
-            result.insert(future.get().begin(), future.get().end());
-        }
-
-        return result;
+        std::ranges::sort(results);
+        results.erase(std::ranges::unique(results).begin(), results.end());
+        return results;
     }
 };
 

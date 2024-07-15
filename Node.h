@@ -2,15 +2,13 @@
 #define NODE_H
 
 #include <unordered_map>
-#include <unordered_set>
+#include <vector>
 #include <string>
-using std::unordered_map, std::unordered_set, std::string;
+using std::unordered_map, std::vector, std::string;
 
 struct Node {
     unordered_map<char, Node*> children;
-    unordered_set<int> movieIds;
-
-    Node() = default;
+    vector<int> movieIds;
     ~Node() {
         for (auto& pair : children) {
             delete pair.second;

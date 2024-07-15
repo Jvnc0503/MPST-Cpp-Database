@@ -5,7 +5,7 @@
 using std::cout, std::cin, std::max;
 
 void displayMovieDetails(const Movie& movie) {
-    cout << "Title: " << movie.getTitle() << ", Synopsis: " << movie.getPlot() << ", Tags: ";
+    cout << "Title: " << movie.getTitle() << "\nSynopsis: " << movie.getPlot() << "\nTags: ";
     for (const auto& tag: movie.getTags()) {
         cout << tag << ", ";
     }
@@ -41,39 +41,39 @@ void displayMovies(const vector<Movie>& movies) {
             ++i;
             ++iter;
         }
-        int choice = 0;
-        while (choice < 2 & choice > 4) {
+        while (true) {
             cout << "\n1. Select a movie\n2. Previous\n3. Exit\n";
             if (iter != movies.end()) {
                 cout << "4. Next\n";
             }
+            int choice;
             cin >> choice;
-            switch (choice) {
-                case 1:
-                    cout << "What movie would you like to select?\n";
-                    int select;
-                    cin >> select;
-                    if (select >= 1 && select <= i) {
-                        handleMovieSelection(*(iter - 5 + select));
-                    } else {
-                        cout << "Invalid choice\n";
-                    }
-                    break;
-                case 2:
-                    iter = max(movies.begin(), iter - i - 5);
-                    break;
-                case 3:
-                    iter = movies.end();
-                    cout << "Exiting\n";
-                    break;
-                case 4:
-                    if (iter == movies.end()) {
-                        cout << "Already at the end\nExiting\n";
-                    }
-                    break;
-                default:
+
+            if(choice == 1) {
+                cout << "What movie would you like to select?\n";
+                int select;
+                cin >> select;
+                if (select >= 1 && select <= i) {
+                    handleMovieSelection(*(iter - 6 + select));
+                }
+                else {
                     cout << "Invalid choice\n";
-                    break;
+                }
+            }
+            else if (choice == 2) {
+                iter = max(movies.begin(), iter - i - 6);
+                break;
+            }
+            else if (choice == 3) {
+                iter = movies.end();
+                cout << "Exiting\n";
+                break;
+            }
+            else if (choice == 4) {
+                break;
+            }
+            else {
+                cout << "Invalid choice\n";
             }
         }
     }
@@ -84,5 +84,6 @@ int main() {
 
     database.loadCSV("mpst_full_data_corrected.csv");
 
+    displayMovies(database.searchByText("love"));
     return 0;
 }
