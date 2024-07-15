@@ -35,6 +35,7 @@ void handleMovieSelection(const Movie& movie) {
 void displayMovies(const vector<Movie>& movies) {
     auto iter = movies.begin();
     while (iter != movies.end()) {
+        auto start = iter;
         int i = 1;
         while (i<=5 && iter != movies.end()) {
             cout << i << ". " << iter->getTitle() << '\n';
@@ -54,7 +55,7 @@ void displayMovies(const vector<Movie>& movies) {
                 int select;
                 cin >> select;
                 if (select >= 1 && select < i) {
-                    handleMovieSelection(*(iter - 6 + select));
+                    handleMovieSelection(*(start + select - 1));
                 }
                 else {
                     cout << "Invalid choice\n";
