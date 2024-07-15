@@ -12,7 +12,7 @@ using std::unordered_map, std::vector, std::string, std::tolower, std::locale, s
 class Trie {
     Node* root;
 
-    void insert(Node* node, const string& word, const int movieId, const size_t index) {
+    void insertAux(Node* node, const string& word, const int movieId, const size_t index) {
         if (index == word.length()) {
             node->movieIds.push_back(movieId);
             return;
@@ -22,10 +22,10 @@ class Trie {
         if (!node->children[c]) {
             node->children[c] = new Node();
         }
-        insert(node->children[c], word, movieId, index + 1);
+        insertAux(node->children[c], word, movieId, index + 1);
     }
 
-    void search(Node* node, const string& word, vector<int>& results, const size_t index) const {
+    void searchAux(Node* node, const string& word, vector<int>& results, const size_t index) const {
         if (index == word.length()) {
             results.insert(results.end(), node->movieIds.begin(), node->movieIds.end());
             return;
@@ -33,7 +33,7 @@ class Trie {
 
         const char c = tolower(word[index], locale());
         if (node->children.contains(c)) {
-            search(node->children[c], word, results, index + 1);
+            searchAux(node->children[c], word, results, index + 1);
         }
     }
 
@@ -52,7 +52,7 @@ public:
             std::ranges::transform(word, word.begin(),
                                    [](unsigned char c){ return tolower(c); });
             if (!word.empty()) {
-                insert(root, word, movieId, 0);
+                insertAux(root, word, movieId, 0);
             }
         }
     }
@@ -66,7 +66,7 @@ public:
             std::ranges::transform(word, word.begin(),
                                    [](unsigned char c){ return tolower(c); });
             if (!word.empty()) {
-                search(root, word, results, 0);
+                searchAux(root, word, results, 0);
             }
         }
         std::ranges::sort(results);

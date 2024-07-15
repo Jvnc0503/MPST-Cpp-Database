@@ -70,7 +70,7 @@ public:
                 tagMap[tag].insert(builder.getId());
             }
 
-            movies.emplace(builder.getId(), builder.build());
+            movies.emplace(builder.getId(), std::move(builder.build()));
             builder.reset();
         }
         csv.close();
@@ -91,6 +91,14 @@ public:
             for (const int& id : tagMap[tag]) {
                 result.emplace_back(movies[id]);
             }
+        }
+        return result;
+    }
+
+    vector<Movie> searchByIds(const unordered_set<int>& ids) {
+        vector<Movie> result;
+        for (const int& id : ids) {
+            result.emplace_back(movies[id]);
         }
         return result;
     }

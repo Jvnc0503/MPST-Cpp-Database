@@ -8,17 +8,15 @@
 using std::unordered_set, std::unordered_map, std::string, std::cout;
 
 class UserManager {
-    static UserManager* instance;
     unordered_set<int> watchLater;
     unordered_set<int> likes;
     unordered_map<string, int> tagPreferences;
 
     UserManager() = default;
+    ~UserManager() = default;
 public:
-    static UserManager* getInstance() {
-        if (!instance) {
-            instance = new UserManager();
-        }
+    static UserManager& getInstance() {
+        static UserManager instance;
         return instance;
     }
 

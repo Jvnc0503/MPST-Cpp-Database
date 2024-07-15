@@ -81,9 +81,37 @@ void displayMovies(const vector<Movie>& movies) {
 
 int main() {
     MovieDatabase& database = MovieDatabase::getInstance();
-
     database.loadCSV("mpst_full_data_corrected.csv");
+    UserManager& userManager = UserManager::getInstance();
 
-    displayMovies(database.searchByText("love"));
-    return 0;
+    while(true) {
+        cout << "1. Search by text\n2. Search by tag\n3. Show likes\n4. Show Watch Later\n5. Show recomendations\n5. Exit\nEnter your choice: ";
+        int choice;
+        cin >> choice;
+        switch (choice) {
+            case 1: {
+                cout << "Enter text to search: ";
+                string text;
+                cin >> text;
+                displayMovies(database.searchByText(text));
+                break;
+            }
+            case 2: {
+                cout << "Enter tag: ";
+                string tag;
+                cin >> tag;
+                displayMovies(database.searchByTag(tag));
+            }
+            case 3: {
+                displayMovies(database.searchByIds(userManager.getLikes()));
+            }
+            case 4: {
+                displayMovies(database.searchByIds(userManager.getWatchLater()));
+            }
+            case 5:
+                return 0;
+            default:
+                cout << "Invalid choice\n";
+        }
+    }
 }
