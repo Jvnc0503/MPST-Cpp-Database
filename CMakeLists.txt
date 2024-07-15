@@ -9,4 +9,5 @@ add_executable(MPST_Cpp_Database main.cpp
         MovieBuilder.h
         MovieDatabase.h
         Node.h
-        Trie.h)
+        Trie.h
+        UserManager.h)
