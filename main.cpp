@@ -40,8 +40,11 @@ void displayMovies(const vector<Movie>& movies) {
             ++iter;
         }
         int choice = 0;
-        while (choice != 2) {
-            cout << "\n1. Select a movie\n2. Next\n3. Previous\n4. Exit\n";
+        while (choice < 2 & choice > 4) {
+            cout << "\n1. Select a movie\n2. Previous\n3. Exit\n";
+            if (iter != movies.end()) {
+                cout << "4. Next\n";
+            }
             cin >> choice;
             if (choice == 1) {
                 cout << "What movie would you like to select?\n";
@@ -53,13 +56,13 @@ void displayMovies(const vector<Movie>& movies) {
                     cout << "Invalid choice\n";
                 }
             }
-            else if (choice == 3) {
+            else if (choice == 2) {
                 iter-=10;
             }
-            else if (choice == 4) {
-                break;
+            else if (choice == 3) {
+                iter = movies.end();
             }
-            else if (choice != 2) {
+            else if (choice != 4) {
                 cout << "Invalid choice\n";
             }
         }
