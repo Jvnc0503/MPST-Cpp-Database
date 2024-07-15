@@ -12,26 +12,26 @@ using std::unordered_map, std::vector, std::string, std::tolower, std::locale, s
 class Trie {
     Node* root;
 
-    void insertAux(Node* node, const string& word, const int movieId, const size_t index) {
+    static void insertAux(Node* node, const string& word, const int movieId, const size_t index) {
         if (index == word.length()) {
             node->movieIds.push_back(movieId);
             return;
         }
 
-        const char c = tolower(word[index], locale());
+        const char c = word[index];
         if (!node->children[c]) {
             node->children[c] = new Node();
         }
         insertAux(node->children[c], word, movieId, index + 1);
     }
 
-    void searchAux(Node* node, const string& word, vector<int>& results, const size_t index) const {
+    static void searchAux(Node* node, const string& word, vector<int>& results, const size_t index) {
         if (index == word.length()) {
             results.insert(results.end(), node->movieIds.begin(), node->movieIds.end());
             return;
         }
 
-        const char c = tolower(word[index], locale());
+        const char c = word[index];
         if (node->children.contains(c)) {
             searchAux(node->children[c], word, results, index + 1);
         }
@@ -44,13 +44,13 @@ public:
         delete root;
     }
 
-    void insert(const int movieId, const string& text) {
+    void insert(const int movieId, const string& text) const {
         istringstream iss(text);
         string word;
         while (iss >> word) {
-            erase_if(word, [](char c) { return !isalnum(c); });
+            erase_if(word, [](const char c) { return !isalnum(c); });
             std::ranges::transform(word, word.begin(),
-                                   [](unsigned char c){ return tolower(c); });
+                                   [](const unsigned char c){ return tolower(c); });
             if (!word.empty()) {
                 insertAux(root, word, movieId, 0);
             }
@@ -62,9 +62,9 @@ public:
         istringstream iss(text);
         string word;
         while (iss >> word) {
-            erase_if(word, [](char c) { return !isalnum(c); });
+            erase_if(word, [](const char c) { return !isalnum(c); });
             std::ranges::transform(word, word.begin(),
-                                   [](unsigned char c){ return tolower(c); });
+                                   [](const unsigned char c){ return tolower(c); });
             if (!word.empty()) {
                 searchAux(root, word, results, 0);
             }
