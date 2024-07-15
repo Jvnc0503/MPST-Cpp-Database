@@ -113,7 +113,7 @@ public:
         }
 
         vector<pair<int, double>> sortedWeights(movieWeights.begin(), movieWeights.end());
-        std::ranges::sort(sortedWeights, [](const pair<int, double>& a, const pair<int, double>& b) {
+        sort(sortedWeights, [](const pair<int, double>& a, const pair<int, double>& b) {
             return a.second > b.second;
         });
 
