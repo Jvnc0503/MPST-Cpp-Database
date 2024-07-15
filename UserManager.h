@@ -46,4 +46,6 @@ public:
     }
 };
 
+UserManager* UserManager::instance = nullptr;
+
 #endif

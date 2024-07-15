@@ -46,6 +46,7 @@ public:
     }
 
     Movie build() {
+        std::cout << "construyendo\n";
         return {id, std::move(title), std::move(plot), std::move(tags)};
     }
 

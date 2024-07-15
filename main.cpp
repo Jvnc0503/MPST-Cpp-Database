@@ -80,6 +80,9 @@ void displayMovies(const vector<Movie>& movies) {
 }
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    MovieDatabase& database = MovieDatabase::getInstance();
+
+    database.loadCSV("mpst_full_data_corrected.csv");
+
     return 0;
 }
