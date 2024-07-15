@@ -82,17 +82,19 @@ void displayMovies(const vector<Movie>& movies) {
 int main() {
     MovieDatabase& database = MovieDatabase::getInstance();
     database.loadCSV("mpst_full_data_corrected.csv");
-    UserManager& userManager = UserManager::getInstance();
+    const UserManager& userManager = UserManager::getInstance();
 
     while(true) {
-        cout << "1. Search by text\n2. Search by tag\n3. Show likes\n4. Show Watch Later\n5. Show recomendations\n6. Exit\nEnter your choice: ";
+        cout << "\nMenu:\n1. Search by text\n2. Search by tag\n3. Show likes\n4. Show Watch Later\n5. Show recomendations\n6. Exit\nEnter your choice: ";
         int choice;
         cin >> choice;
         switch (choice) {
             case 1: {
                 cout << "Enter text to search: ";
                 string text;
-                cin >> text;
+                cin.ignore();
+                getline(cin, text);
+                cout << "Results for: " << text << '\n';
                 displayMovies(database.searchByText(text));
                 break;
             }
@@ -100,16 +102,24 @@ int main() {
                 cout << "Enter tag: ";
                 string tag;
                 cin >> tag;
+                cout << "Results for: " << tag << '\n';
                 displayMovies(database.searchByTag(tag));
+                break;
             }
             case 3: {
+                cout << "Likes:\n";
                 displayMovies(database.searchByIds(userManager.getLikes()));
+                break;
             }
             case 4: {
+                cout << "Watch Later:\n";
                 displayMovies(database.searchByIds(userManager.getWatchLater()));
+                break;
             }
             case 5: {
+                cout << "Recommendations:\n";
                 displayMovies(database.getRecommendations(userManager.getTagPreferences()));
+                break;
             }
             case 6:
                 return 0;
