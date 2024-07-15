@@ -62,7 +62,7 @@ public:
         istringstream iss(text);
         string word;
         while (iss >> word) {
-            std::erase_if(word, [](char c) { return !isalnum(c); });
+            erase_if(word, [](char c) { return !isalnum(c); });
             std::ranges::transform(word, word.begin(),
                                    [](unsigned char c){ return tolower(c); });
             if (!word.empty()) {

@@ -9,7 +9,7 @@
 #include <fstream>
 #include <sstream>
 #include "Trie.h"
-using std::unordered_map, std::string, std::vector, std::ifstream, std::istringstream, std::stringstream;
+using std::unordered_map, std::string, std::vector, std::ifstream, std::istringstream, std::stringstream, std::pair;
 
 class MovieDatabase {
     unordered_map<int, Movie> movies;
@@ -98,6 +98,27 @@ public:
     vector<Movie> searchByIds(const unordered_set<int>& ids) {
         vector<Movie> result;
         for (const int& id : ids) {
+            result.emplace_back(movies[id]);
+        }
+        return result;
+    }
+
+    vector<Movie> getRecommendations(const unordered_map<string, double>& tagPreferences) {
+        unordered_map<int, double> movieWeights;
+
+        for (const auto& [tag, preference]: tagPreferences) {
+            for (const int& id: tagMap[tag]) {
+                movieWeights[id] += preference / movies[id].getTags().size();
+            }
+        }
+
+        vector<pair<int, double>> sortedWeights(movieWeights.begin(), movieWeights.end());
+        std::ranges::sort(sortedWeights, [](const pair<int, double>& a, const pair<int, double>& b) {
+            return a.second > b.second;
+        });
+
+        vector<Movie> result;
+        for (const auto& [id, weight]: sortedWeights) {
             result.emplace_back(movies[id]);
         }
         return result;

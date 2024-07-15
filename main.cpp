@@ -13,7 +13,7 @@ void displayMovieDetails(const Movie& movie) {
 }
 
 void handleMovieSelection(const Movie& movie) {
-    UserManager *userManager = UserManager::getInstance();
+    UserManager& userManager = UserManager::getInstance();
     int choice = 0;
     while (choice != 3) {
         cout << "Selected movie: \n";
@@ -21,10 +21,10 @@ void handleMovieSelection(const Movie& movie) {
         cout << "1. Add to likes\n2. Add to watch later\n3. Back\n";
         cin >> choice;
         if (choice == 1) {
-            userManager->addToLikes(movie);
+            userManager.addToLikes(movie);
         }
         else if (choice == 2) {
-            userManager->addToWatchLater(movie);
+            userManager.addToWatchLater(movie);
         }
         else if (choice != 3) {
             cout << "Invalid choice\n";
@@ -85,7 +85,7 @@ int main() {
     UserManager& userManager = UserManager::getInstance();
 
     while(true) {
-        cout << "1. Search by text\n2. Search by tag\n3. Show likes\n4. Show Watch Later\n5. Show recomendations\n5. Exit\nEnter your choice: ";
+        cout << "1. Search by text\n2. Search by tag\n3. Show likes\n4. Show Watch Later\n5. Show recomendations\n6. Exit\nEnter your choice: ";
         int choice;
         cin >> choice;
         switch (choice) {
@@ -108,7 +108,10 @@ int main() {
             case 4: {
                 displayMovies(database.searchByIds(userManager.getWatchLater()));
             }
-            case 5:
+            case 5: {
+                displayMovies(database.getRecommendations(userManager.getTagPreferences()));
+            }
+            case 6:
                 return 0;
             default:
                 cout << "Invalid choice\n";

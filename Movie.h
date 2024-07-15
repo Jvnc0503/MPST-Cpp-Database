@@ -11,8 +11,9 @@ class Movie {
     string plot;
     unordered_set<string> tags;
 public:
-    Movie() = default;
+    Movie(): id(0) {};
     Movie(const int id, string title, string plot, unordered_set<string> tags): id(id), title(std::move(title)), plot (std::move(plot)), tags(std::move(tags)) {}
+    ~Movie() = default;
 
     const int& getId() const {
         return this->id;

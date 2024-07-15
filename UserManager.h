@@ -10,7 +10,7 @@ using std::unordered_set, std::unordered_map, std::string, std::cout;
 class UserManager {
     unordered_set<int> watchLater;
     unordered_set<int> likes;
-    unordered_map<string, int> tagPreferences;
+    unordered_map<string, double> tagPreferences;
 
     UserManager() = default;
     ~UserManager() = default;
@@ -41,11 +41,9 @@ public:
         return likes;
     }
 
-    const unordered_map<string, int>& getTagPreferences() const {
+    const unordered_map<string, double>& getTagPreferences() const {
         return tagPreferences;
     }
 };
-
-UserManager* UserManager::instance = nullptr;
 
 #endif
