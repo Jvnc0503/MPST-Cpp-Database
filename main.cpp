@@ -2,7 +2,7 @@
 #include "Movie.h"
 #include "MovieDatabase.h"
 #include "UserManager.h"
-using std::cout, std::cin;
+using std::cout, std::cin, std::max;
 
 void displayMovieDetails(const Movie& movie) {
     cout << "Title: " << movie.getTitle() << ", Synopsis: " << movie.getPlot() << ", Tags: ";
@@ -35,8 +35,10 @@ void handleMovieSelection(const Movie& movie) {
 void displayMovies(const vector<Movie>& movies) {
     auto iter = movies.begin();
     while (iter != movies.end()) {
-        for (int i=1; i<=5 && iter != movies.end(); i++) {
+        int i = 1;
+        while (i<=5 && iter != movies.end()) {
             cout << i << ". " << iter->getTitle() << '\n';
+            ++i;
             ++iter;
         }
         int choice = 0;
@@ -51,20 +53,23 @@ void displayMovies(const vector<Movie>& movies) {
                     cout << "What movie would you like to select?\n";
                     int select;
                     cin >> select;
-                    if (select >= 1 && select <= 5) {
+                    if (select >= 1 && select <= i) {
                         handleMovieSelection(*(iter - 5 + select));
                     } else {
                         cout << "Invalid choice\n";
                     }
                     break;
                 case 2:
-                    iter -= 10;
+                    iter = max(movies.begin(), iter - i - 5);
                     break;
                 case 3:
                     iter = movies.end();
                     cout << "Exiting\n";
                     break;
                 case 4:
+                    if (iter == movies.end()) {
+                        cout << "Already at the end\nExiting\n";
+                    }
                     break;
                 default:
                     cout << "Invalid choice\n";
