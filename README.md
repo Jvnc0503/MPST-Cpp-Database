@@ -51,7 +51,7 @@ Contenido del Proyecto (Archivos):
 	- string
 	- unordered_set
 
-* Funciones:
+* Atributos:
 	- int id: Identificador único de la película.
 
 	- string title: Título de la película.
