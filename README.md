@@ -11,20 +11,20 @@ Contenido del Proyecto (Archivos):
 
 
 * "Main.cpp":
-Se realizo la importacion de la siguiente(s) librerias:
+- Se realizo la importacion de la siguiente(s) librerias:
 	- iostream
 
-Modulos importados:
+- Modulos importados:
 	- "Movie.h"
 	- "MovieDatabase.h"
 	- "UserManager.h"
 
-No se importo la biblioteca "Standard" en su totalidad dado a motivos de optimizacion. Por lo que se usaron los siguientes componentes:
+- No se importo la biblioteca "Standard" en su totalidad dado a motivos de optimizacion. Por lo que se usaron los siguientes componentes:
 	- "cout"
 	- "cin"
 	- "max"
 
-Funciones: 
+- Funciones: 
 	- void "displayMovieDetails":
 		Descripción: La función muestra los detalles de la película seleccionada, imprime los títulos, la sinopsis, y las etiquetas de la película.
 
