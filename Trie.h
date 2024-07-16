@@ -22,7 +22,7 @@ class Trie {
 			return;
 		}
 		const char c = word[index];
-		if (!node->children[c]) {
+		if (!node->children.contains(c)) {
 			node->children[c] = new Node(); // Crea un nuevo nodo si no existe para el carácter actual.
 		}
 		insertAux(node->children[c], word, movieId, index + 1); // Continúa con el siguiente carácter.
