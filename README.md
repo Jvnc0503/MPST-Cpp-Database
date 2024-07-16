@@ -223,4 +223,4 @@ Si utiliza Clion, asegúrese de colocarlo dentro de la carpeta cmake-build-debug
 Referencias:
 - https://en.cppreference.com/w/
 - https://stackoverflow.com/
-- 
+- https://chatgpt.com/
