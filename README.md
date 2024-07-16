@@ -76,11 +76,28 @@ Contenido del Proyecto (Archivos):
 
 * Funciones:
 	- int id: Identificador único de la película en construcción.
+
 	- string title: Título de la película en construcción.
+
 	- string plot: Sinopsis de la película en construcción.
+
 	- unordered_set<string> tags: Conjunto de etiquetas asociadas a la película en construcción.
 
+* Setters:
+	- setId: Establece el identificador de la película a partir de un string.
 
+ 	- setTitle: Establece el título de la película.
+
+	- setPlot: Establece la sinopsis de la película, eliminando las comillas iniciales y finales si están presentes.
+
+	- setTags: Establece las etiquetas de la película a partir de un string separado por comas.
+
+* Métodos relevantes:
+	- build: Construye y retorna un objeto "Movie" con los valores actuales del "MovieBuilder".
+
+	- reset: Reinicia todos los valores del "MovieBuilder" a sus valores por defecto.
+
+	
 ## MovieDatabase.h:
 	- 
 
