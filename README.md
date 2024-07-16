@@ -53,13 +53,32 @@ Contenido del Proyecto (Archivos):
 
 * Funciones:
 	- int id: Identificador único de la película.
+
 	- string title: Título de la película.
+
  	- string plot: Sinopsis de la película.
+    
   	- unordered_set<string> tags: Conjunto de etiquetas asociadas a la película. 
 
 
 ## MovieBuilder.h:
-	- 
+* Importaciones de Librerías:
+	- string
+	- unordered_set
+	- sstream
+
+* No se importo el namespace "Standard" en su totalidad dado a motivos de optimizacion. Por lo que se usaron los siguientes componentes:
+	- string
+	- unordered_set
+	- istringstream
+	- getline
+	- stoi
+
+* Funciones:
+	- int id: Identificador único de la película en construcción.
+	- string title: Título de la película en construcción.
+	- string plot: Sinopsis de la película en construcción.
+	- unordered_set<string> tags: Conjunto de etiquetas asociadas a la película en construcción.
 
 
 ## MovieDatabase.h:
