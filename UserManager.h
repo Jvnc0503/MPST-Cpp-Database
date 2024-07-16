@@ -22,7 +22,7 @@ public:
 
     void addToWatchLater(const Movie& movie) {
         watchLater.emplace(movie.getId());
-        std::cout << "Added " << movie.getTitle() << " to watch later\n";
+        cout << "Added " << movie.getTitle() << " to watch later\n";
     }
 
     void addToLikes(const Movie& movie) {
@@ -30,7 +30,7 @@ public:
         for (const auto& tag : movie.getTags()) {
             tagPreferences[tag]++;
         }
-        std::cout << "Added " << movie.getTitle() << " to likes\n";
+        cout << "Added " << movie.getTitle() << " to likes\n";
     }
 
     const unordered_set<int>& getWatchLater() const {
