@@ -19,7 +19,7 @@ Contenido del Proyecto (Archivos):
 	- "MovieDatabase.h"
 	- "UserManager.h"
 
-* No se importo la biblioteca "Standard" en su totalidad dado a motivos de optimizacion. Por lo que se usaron los siguientes componentes:
+* No se importo el namespace "Standard" en su totalidad dado a motivos de optimizacion. Por lo que se usaron los siguientes componentes:
 	- "cout"
 	- "cin"
 	- "max"
@@ -47,7 +47,7 @@ Contenido del Proyecto (Archivos):
 	- string
 	- unordered_set
 
-* No se importo la biblioteca "Standard" en su totalidad dado a motivos de optimizacion. Por lo que se usaron los siguientes componentes:
+* No se importo el namespace "Standard" en su totalidad dado a motivos de optimizacion. Por lo que se usaron los siguientes componentes:
 	- string
 	- unordered_set
 
