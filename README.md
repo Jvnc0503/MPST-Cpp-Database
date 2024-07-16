@@ -56,7 +56,7 @@ Contenido del Proyecto (Archivos):
   	- unordered_set<string> tags: Conjunto de etiquetas asociadas a la película. 
 
 
-## MovieBuilder.h:
+## MovieBuilder.h (Esta clase usa el patrón de diseño Builder):
 * Importaciones de Librerías:
 	- string
 	- unordered_set
@@ -93,7 +93,7 @@ Contenido del Proyecto (Archivos):
 	- reset: Reinicia todos los valores del "MovieBuilder" a sus valores por defecto.
 
 	
-## MovieDatabase.h:
+## MovieDatabase.h (Esta clase usa el patrón de diseño Singleton):
 * Importaciones de Librerías:
 	- unordered_map
 	- string
@@ -187,7 +187,7 @@ Contenido del Proyecto (Archivos):
   	- search: Busca por palabra de forma independiente usando concurrencia y retorna un vector de identificadores de películas que coinciden.
 
 
-## UserManager.h:
+## UserManager.h (Esta clase usa el patrón de diseño Singleton):
 * Importaciones de Librerías:
 	- unordered_set
 	- unordered_map
