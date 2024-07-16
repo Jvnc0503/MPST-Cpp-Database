@@ -140,7 +140,20 @@ Contenido del Proyecto (Archivos):
 
 
 ## Node.h:
-	- 
+* Importaciones de Librerías:
+	- unordered_map
+	- vector
+	- string
+  
+* No se importo el namespace "Standard" en su totalidad dado a motivos de optimizacion. Por lo que se usaron los siguientes componentes:
+	- unordered_map
+	- vector
+	- string
+  
+* Funciones:
+	- unordered_map<char, Node*> children: Mapa que almacena los nodos hijos utilizando caracteres como claves.
+
+  	- vector<int> movieIds: Vector que almacena los identificadores de las películas asociadas a este nodo. 
 
 
 ## Trie.h:
