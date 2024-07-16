@@ -103,7 +103,8 @@ int main() {
             case 2: {
                 cout << "Enter tag: ";
                 string tag;
-                cin >> tag;
+                cin.ignore();
+                getline(cin, tag);
                 cout << "\nResults for: " << tag << '\n';
                 displayMovies(database.searchByTag(tag));
                 break;
