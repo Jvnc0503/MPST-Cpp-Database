@@ -150,7 +150,7 @@ Contenido del Proyecto (Archivos):
 	- vector
 	- string
   
-* Funciones:
+* Atributos:
 	- unordered_map<char, Node*> children: Mapa que almacena los nodos hijos utilizando caracteres como claves.
 
   	- vector<int> movieIds: Vector que almacena los identificadores de las películas asociadas a este nodo. 
