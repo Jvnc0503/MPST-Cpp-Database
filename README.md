@@ -220,6 +220,9 @@ Si utiliza Clion, asegúrese de colocarlo dentro de la carpeta cmake-build-debug
 
 - https://docs.google.com/spreadsheets/d/1Eyxz5K7UtoBq1ywYVzFCO1lF-NjtSZNPEPTTcI6w_d8/edit?gid=408967157#gid=408967157
 
+Video de Exposicion:
+- https://youtu.be/rJKzKSuLLhA
+
 Referencias:
 - https://en.cppreference.com/w/
 - https://stackoverflow.com/
