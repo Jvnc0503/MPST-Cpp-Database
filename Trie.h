@@ -21,7 +21,7 @@ class Trie {
         }
 
         const char c = word[index];
-        if (!node->children[c]) {
+        if (!node->children.contains(c)) {
             node->children[c] = new Node();
         }
         insertAux(node->children[c], word, movieId, index + 1);
