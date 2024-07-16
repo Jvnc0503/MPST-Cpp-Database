@@ -99,7 +99,44 @@ Contenido del Proyecto (Archivos):
 
 	
 ## MovieDatabase.h:
-	- 
+* Importaciones de Librerías:
+	- unordered_map
+	- string
+	- vector
+	- fstream
+	- sstream
+  
+* Modulos importados:
+	- Movie.h
+	- MovieBuilder.h
+	- Trie.h
+
+* No se importo el namespace "Standard" en su totalidad dado a motivos de optimizacion. Por lo que se usaron los siguientes componentes:
+	- unordered_map
+	- string
+	- vector
+	- ifstream
+	- istringstream
+	- stringstream
+	- pair
+  
+* Funciones:
+	- unordered_map<int, Movie> movies: Mapa que almacena las películas por su identificador.
+
+	- unordered_map<string, unordered_set<int>> tagMap: Mapa que almacena las etiquetas y sus películas asociadas.
+
+	- Trie trie: Estructura de datos trie para búsqueda eficiente por texto.
+
+* Métodos relevantes:
+	- parseRow: Parsea una fila del archivo CSV y retorna un vector de strings.
+
+	- loadCSV: Carga los datos de películas desde un archivo CSV.
+
+	- searchByText: Busca películas por texto y retorna un vector de películas que coinciden.
+
+	- searchByTag: Busca películas por etiqueta y retorna un vector de películas que coinciden.
+
+	- searchByIds: Busca películas por sus identificadores y retorna un vector de películas.
 
 
 ## Node.h:
