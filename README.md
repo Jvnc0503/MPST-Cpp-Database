@@ -10,7 +10,7 @@ Contenido del Proyecto (Archivos):
 - "UserManager.h"
 
 
-## "Main.cpp":
+## main.cpp:
 	- Se realizo la importacion de la siguiente(s) librerias:
 		- iostream
 
@@ -42,25 +42,28 @@ Contenido del Proyecto (Archivos):
 			     al usuario para buscar y gestionar películas.
 		
 
-* "Movie.h":
+## Movie.h:
 	- 
 
 
-* "MovieBuilder.h":
-	-
+## MovieBuilder.h:
+	- 
 
 
-* "MovieDatabase.h":
+## MovieDatabase.h:
+	- 
 
 
-* "Node.h":
+## Node.h:
+	- 
 
 
-* "Trie.h":
+## Trie.h:
+	- 
 
 
-* "UserManager.h":
-
+## UserManager.h:
+	- 
 
 
 Archivo "comma-separated value" (.csv):
