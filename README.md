@@ -157,7 +157,35 @@ Contenido del Proyecto (Archivos):
 
 
 ## Trie.h:
+* Importaciones de Librerías:
+	- unordered_map
+	- vector
+	- string
+	- algorithm
+	- cctype
+	- future
+
+* Modulos importados:
+	- Node.h
+  
+* No se importo el namespace "Standard" en su totalidad dado a motivos de optimizacion. Por lo que se usaron los siguientes componentes:
+	- unordered_map
+	- vector
+	- string
+	- tolower
+	- isalnum
+	- erase_if
+	- future
+	- launch
+	- async
+	- ranges::transform
+	- ranges::sort
+	- ranges::unique
+  
+* Funciones:
 	- 
+  
+* Métodos relevantes:
 
 
 ## UserManager.h:
