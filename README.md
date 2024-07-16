@@ -189,7 +189,7 @@ Contenido del Proyecto (Archivos):
     
   	- insert: Inserta un texto en el trie, procesando cada palabra individualmente.
   	  
-  	- search: Busca un texto en el trie y retorna un vector de identificadores de películas que coinciden.
+  	- search: Busca por palabra de forma independiente usando concurrencia y retorna un vector de identificadores de películas que coinciden.
 
 
 ## UserManager.h:
