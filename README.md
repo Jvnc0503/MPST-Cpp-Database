@@ -11,7 +11,7 @@ Contenido del Proyecto (Archivos):
 
 
 * "Main.cpp":
-- Se realizo la importacion de la siguiente(s) librerias:
+	- Se realizo la importacion de la siguiente(s) librerias:
 	- iostream
 
 - Modulos importados:
