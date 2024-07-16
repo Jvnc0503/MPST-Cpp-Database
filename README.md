@@ -216,6 +216,7 @@ Contenido del Proyecto (Archivos):
 
 Archivo "comma-separated value" (.csv):
 El archivo ".csv" inicial fue corregido para una mejor administración de la información, tal como fue indicado en clase.
+Si utiliza Clion, asegúrese de colocarlo dentro de la carpeta cmake-build-debug
 
 - https://docs.google.com/spreadsheets/d/1Eyxz5K7UtoBq1ywYVzFCO1lF-NjtSZNPEPTTcI6w_d8/edit?gid=408967157#gid=408967157
 
