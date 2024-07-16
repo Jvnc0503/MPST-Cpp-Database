@@ -225,3 +225,9 @@ Referencias:
 - https://stackoverflow.com/
 - https://chatgpt.com/
 - https://claude.ai/
+
+Integrantes:
+- Jesús Valentin Niño Castañeda
+- Alejandro Ismael Escobar Núñez 
+- Javier Ignacio Leon Olivares Sarmiento
+- Thiago Gabriel Rivera Matta
