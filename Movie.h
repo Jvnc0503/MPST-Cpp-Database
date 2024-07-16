@@ -3,33 +3,38 @@
 
 #include <string>
 #include <unordered_set>
+
 using std::string, std::unordered_set;
 
 class Movie {
-    int id;
-    string title;
-    string plot;
-    unordered_set<string> tags;
+	int id;
+	string title;
+	string plot;
+	unordered_set<string> tags;
 public:
-    Movie(): id(0) {};
-    Movie(const int id, string title, string plot, unordered_set<string> tags): id(id), title(std::move(title)), plot (std::move(plot)), tags(std::move(tags)) {}
-    ~Movie() = default;
+	Movie() : id(0) {};
 
-    const int& getId() const {
-        return this->id;
-    }
+	Movie(const int id, string title, string plot, unordered_set<string> tags) : id(id), title(std::move(title)),
+																				 plot(std::move(plot)),
+																				 tags(std::move(tags)) {}
 
-    const string& getTitle() const {
-        return this->title;
-    }
+	~Movie() = default;
 
-    const string& getPlot() const {
-        return this->plot;
-    }
+	const int &getId() const {
+		return this->id;
+	}
 
-    const unordered_set<string>& getTags() const {
-        return this->tags;
-    }
+	const string &getTitle() const {
+		return this->title;
+	}
+
+	const string &getPlot() const {
+		return this->plot;
+	}
+
+	const unordered_set<string> &getTags() const {
+		return this->tags;
+	}
 };
 
 #endif
