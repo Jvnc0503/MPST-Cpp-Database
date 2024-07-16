@@ -15,14 +15,14 @@ Contenido del Proyecto (Archivos):
 	- iostream
 
 * Modulos importados:
-	- "Movie.h"
-	- "MovieDatabase.h"
-	- "UserManager.h"
+	- Movie.h
+	- MovieDatabase.h
+	- UserManager.h
 
 * No se importo el namespace "Standard" en su totalidad dado a motivos de optimizacion. Por lo que se usaron los siguientes componentes:
-	- "cout"
-	- "cin"
-	- "max"
+	- cout
+	- cin
+	- max
 
 * Funciones: 
 	- void "displayMovieDetails":
