@@ -9,7 +9,7 @@ Contenido del Proyecto (Archivos):
 - "Trie.h"
 - "UserManager.h"
 
-* "main.cpp":
+* "Main.cpp":
 Se realizo la importacion de la siguiente(s) librerias:
 	- iostream
 
