@@ -25,21 +25,16 @@ Contenido del Proyecto (Archivos):
 	- max
 
 * Funciones: 
-	- void "displayMovieDetails":
-		Descripción: La función muestra los detalles de la película seleccionada, imprime los títulos, la sinopsis, y las etiquetas de la película.
+	- void "displayMovieDetails": La función muestra los detalles de la película seleccionada, imprime los títulos, la sinopsis, y las etiquetas de la película.
 
-	- void "handleMovieSelection":
-		Descripción:  La función maneja la selección de una película permitiendo al usuario agregarla a "me gusta" o a "ver más tarde".
+	- void "handleMovieSelection": La función maneja la selección de una película permitiendo al usuario agregarla a "me gusta" o a "ver más tarde".
 		      El bucle se repite hasta que el usuario elige volver al menú anterior.
-
 	
-	- void "displayMovies":
-		Descripción: La función muestra una lista de películas en grupos de cinco. Permite al usuario seleccionar una película,
+	- void "displayMovies": La función muestra una lista de películas en grupos de cinco. Permite al usuario seleccionar una película,
 		     navegar a la página anterior o siguiente de la lista, o salir de la visualización.
 	
-	- int "main":
-		Descripción: La función principal del programa. Carga la base de datos de películas desde un archivo CSV y presenta un menú interactivo
-		     al usuario para buscar y gestionar películas.
+	- int "main": La función principal del programa. Carga la base de datos de películas desde un archivo CSV y presenta un menú interactivo
+		     al usuario para buscar y gestionar películas. Se inicializa una sesion de usuario haciendo uso del archivo "UserManager.h".
 		
 
 ## Movie.h:
@@ -193,7 +188,30 @@ Contenido del Proyecto (Archivos):
 
 
 ## UserManager.h:
-	- 
+* Importaciones de Librerías:
+	- unordered_set
+	- unordered_map
+	- string
+
+* Modulos importados:
+	- Movie.h
+
+* No se importo el namespace "Standard" en su totalidad dado a motivos de optimizacion. Por lo que se usaron los siguientes componentes:
+	- unordered_set
+	- unordered_map
+	- string
+	- cout
+
+* Atributos:
+	- unordered_set<int> watchLater: Conjunto de identificadores de películas para ver más tarde.
+
+	- unordered_set<int> likes: Conjunto de identificadores de películas que le gustan al usuario.
+
+	- unordered_map<string, double> tagPreferences: Mapa que almacena las preferencias de etiquetas del usuario.
+  
+* Métodos relevantes:
+	- addToWatchLater: Añade una película al conjunto de "ver más tarde" e imprime un mensaje.
+	- addToLikes: Añade una película al conjunto de "me gusta", incrementa las preferencias de etiquetas e imprime un mensaje.
 
 
 Archivo "comma-separated value" (.csv):
