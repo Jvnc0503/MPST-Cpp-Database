@@ -182,10 +182,14 @@ Contenido del Proyecto (Archivos):
 	- ranges::sort
 	- ranges::unique
   
-* Funciones:
-	- 
-  
 * Métodos relevantes:
+	- insertAux: Inserta una palabra en el trie de forma recursiva.
+
+ 	- searchAux: Busca una palabra en el trie de forma recursiva y almacena los resultados.
+    
+  	- insert: Inserta un texto en el trie, procesando cada palabra individualmente.
+  	  
+  	- search: Busca un texto en el trie y retorna un vector de identificadores de películas que coinciden.
 
 
 ## UserManager.h:
