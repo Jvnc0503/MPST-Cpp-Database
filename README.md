@@ -11,7 +11,7 @@ Contenido del Proyecto (Archivos):
 
 
 ## main.cpp
-* Se realizo la importacion de la siguiente(s) librerias:
+* Importaciones de Librerías:
 	- iostream
 
 * Modulos importados:
@@ -43,7 +43,19 @@ Contenido del Proyecto (Archivos):
 		
 
 ## Movie.h:
-	- 
+* Importaciones de Librerías:
+	- string
+	- unordered_set
+
+* No se importo la biblioteca "Standard" en su totalidad dado a motivos de optimizacion. Por lo que se usaron los siguientes componentes:
+	- string
+	- unordered_set
+
+* Funciones:
+	- int id: Identificador único de la película.
+	- string title: Título de la película.
+ 	- string plot: Sinopsis de la película.
+  	- unordered_set<string> tags: Conjunto de etiquetas asociadas a la película. 
 
 
 ## MovieBuilder.h:
