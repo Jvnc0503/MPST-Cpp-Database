@@ -14,13 +14,16 @@ using std::unordered_map, std::string, std::vector, std::ifstream, std::istrings
 
 class MovieDatabase {
 	unordered_map<int, Movie> movies;
-	unordered_map<string, unordered_set<int>> tagMap;
+	unordered_map<string, unordered_set<int>> tagMap; // Mapea etiquetas a IDs de películas
 	Trie trie;
 
+	// Constructor privado para el patrón Singleton
 	MovieDatabase() = default;
 
+	// Destructor por defecto
 	~MovieDatabase() = default;
 
+	// Parsea una línea del CSV y devuelve sus celdas como vector de strings
 	static vector<string> parseRow(const string &line) {
 		vector<string> row;
 		stringstream ss(line);
@@ -43,17 +46,19 @@ class MovieDatabase {
 	}
 
 public:
+	// Obtiene la instancia única de la base de datos
 	static MovieDatabase &getInstance() {
 		static MovieDatabase instance;
 		return instance;
 	}
 
+	// Carga películas desde un archivo CSV
 	void loadCSV(const string &path) {
 		MovieBuilder builder;
 		ifstream csv(path);
 		string line;
 
-		// Skip the header
+		// Omitir la cabecera
 		getline(csv, line);
 		line.clear();
 
@@ -78,6 +83,7 @@ public:
 		csv.close();
 	}
 
+	// Busca películas por texto
 	vector<Movie> searchByText(const string &text) {
 		const vector<int> ids = trie.search(text);
 		vector<Movie> result;
@@ -87,6 +93,7 @@ public:
 		return result;
 	}
 
+	// Busca películas por etiqueta
 	vector<Movie> searchByTag(const string &tag) {
 		vector<Movie> result;
 		if (tagMap.contains(tag)) {
@@ -97,6 +104,7 @@ public:
 		return result;
 	}
 
+	// Busca películas por un conjunto de ID
 	vector<Movie> searchByIds(const unordered_set<int> &ids) {
 		vector<Movie> result;
 		for (const int &id: ids) {
@@ -105,25 +113,38 @@ public:
 		return result;
 	}
 
+	// Obtiene recomendaciones de películas basadas en preferencias de etiquetas
 	vector<Movie> getRecommendations(const unordered_map<string, double> &tagPreferences) {
-		unordered_map<int, double> movieWeights;
+		unordered_map<int, double> movieWeights; // Almacena la ponderación acumulada de cada película
 
+		// Itera sobre cada preferencia de etiqueta proporcionada
 		for (const auto &[tag, preference]: tagPreferences) {
-			for (const int &id: tagMap[tag]) {
-				movieWeights[id] += preference / movies[id].getTags().size();
+			// Si la etiqueta existe en el mapa de etiquetas, procesa cada película asociada
+			if (tagMap.contains(tag)) {
+				for (const int &id: tagMap[tag]) {
+					// Aumenta la ponderación de la película basada en la preferencia del usuario
+					// y la cantidad de etiquetas de la película, para normalizar la influencia de cada etiqueta
+					movieWeights[id] += preference / movies[id].getTags().size();
+				}
 			}
 		}
 
+		// Convierte el mapa de ponderaciones en un vector para ordenarlo
 		vector<pair<int, double>> sortedWeights(movieWeights.begin(), movieWeights.end());
-		sort(sortedWeights, [](const pair<int, double> &a, const pair<int, double> &b) {
+
+		// Ordena el vector de ponderaciones de mayor a menor
+		sort(sortedWeights.begin(), sortedWeights.end(), [](const pair<int, double> &a, const pair<int, double> &b) {
 			return a.second > b.second;
 		});
 
-		vector<Movie> result;
+		vector<Movie> result; // Almacena el resultado final de las recomendaciones
+
+		// Recorre el vector de ponderaciones ordenado y agrega las películas correspondientes al resultado
 		for (const auto &[id, weight]: sortedWeights) {
-			result.emplace_back(movies[id]);
+			result.emplace_back(movies[id]); // Agrega la película por ID al vector de resultados
 		}
-		return result;
+
+		return result; // Devuelve el vector de películas recomendadas
 	}
 };
 

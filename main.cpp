@@ -5,6 +5,7 @@
 
 using std::cout, std::cin, std::max;
 
+// Muestra información detallada de una película
 void displayMovieDetails(const Movie &movie) {
 	cout << "Title: " << movie.getTitle() << "\nSynopsis: " << movie.getPlot() << "\nTags: ";
 	for (const auto &tag: movie.getTags()) {
@@ -13,8 +14,9 @@ void displayMovieDetails(const Movie &movie) {
 	cout << '\n';
 }
 
+// Maneja la interacción del usuario para seleccionar una película y realizar acciones sobre ella
 void handleMovieSelection(const Movie &movie) {
-	UserManager &userManager = UserManager::getInstance();
+	UserManager &userManager = UserManager::getInstance(); // Instancia singleton de UserManager
 	int choice = 0;
 	while (choice != 3) {
 		cout << "Selected movie: \n";
@@ -31,12 +33,13 @@ void handleMovieSelection(const Movie &movie) {
 	}
 }
 
+// Muestra una lista de películas y maneja la paginación y selección
 void displayMovies(const vector<Movie> &movies) {
 	auto iter = movies.begin();
 	while (iter != movies.end()) {
 		auto start = iter;
 		int i = 1;
-		while (i <= 5 && iter != movies.end()) {
+		while (i <= 5 && iter != movies.end()) { // Muestra hasta 5 películas a la vez
 			cout << i << ". " << iter->getTitle() << '\n';
 			++i;
 			++iter;
@@ -59,14 +62,14 @@ void displayMovies(const vector<Movie> &movies) {
 					cout << "Invalid choice\n";
 				}
 			} else if (choice == 2) {
-				iter = max(movies.begin(), iter - i - 6);
+				iter = max(movies.begin(), iter - i - 6); // Navega a la página anterior
 				break;
 			} else if (choice == 3) {
-				iter = movies.end();
+				iter = movies.end(); // Sale del bucle
 				cout << "Exiting\n";
 				break;
 			} else if (choice == 4) {
-				break;
+				break; // Procede a la siguiente página
 			} else {
 				cout << "Invalid choice\n";
 			}
@@ -75,9 +78,9 @@ void displayMovies(const vector<Movie> &movies) {
 }
 
 int main() {
-	MovieDatabase &database = MovieDatabase::getInstance();
-	database.loadCSV("mpst_full_data_corrected.csv");
-	const UserManager &userManager = UserManager::getInstance();
+	MovieDatabase &database = MovieDatabase::getInstance(); // Instancia singleton de MovieDatabase
+	database.loadCSV("mpst_full_data_corrected.csv"); // Carga datos de películas desde CSV
+	const UserManager &userManager = UserManager::getInstance(); // Instancia singleton de UserManager
 
 	while (true) {
 		cout
@@ -89,29 +92,29 @@ int main() {
 			case 1: {
 				cout << "Enter text to search: ";
 				string text;
-				cin.ignore();
-				getline(cin, text);
+				cin.ignore(); // Limpia el carácter de nueva línea del búfer de entrada
+				getline(cin, text); // Lee la línea completa de texto
 				cout << "\nResults for: " << text << '\n';
-				displayMovies(database.searchByText(text));
+				displayMovies(database.searchByText(text)); // Muestra películas que coinciden con el texto de búsqueda
 				break;
 			}
 			case 2: {
 				cout << "Enter tag: ";
 				string tag;
-				cin.ignore();
-				getline(cin, tag);
+				cin.ignore(); // Limpia el carácter de nueva línea del búfer de entrada
+				getline(cin, tag); // Lee la línea completa de la etiqueta
 				cout << "\nResults for: " << tag << '\n';
-				displayMovies(database.searchByTag(tag));
+				displayMovies(database.searchByTag(tag)); // Muestra películas que coinciden con la etiqueta
 				break;
 			}
 			case 3: {
 				cout << "Likes:\n";
-				displayMovies(database.searchByIds(userManager.getLikes()));
+				displayMovies(database.searchByIds(userManager.getLikes())); // Muestra películas gustadas
 				break;
 			}
 			case 4: {
 				cout << "Watch Later:\n";
-				displayMovies(database.searchByIds(userManager.getWatchLater()));
+				displayMovies(database.searchByIds(userManager.getWatchLater())); // Muestra la lista de ver más tarde
 				break;
 			}
 			case 5: {
@@ -120,7 +123,8 @@ int main() {
 					break;
 				}
 				cout << "Recommendations:\n";
-				displayMovies(database.getRecommendations(userManager.getTagPreferences()));
+				displayMovies(database.getRecommendations(
+						userManager.getTagPreferences())); // Muestra películas recomendadas basadas en las preferencias del usuario
 				break;
 			}
 			case 6:
