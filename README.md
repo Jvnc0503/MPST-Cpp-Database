@@ -10,7 +10,7 @@ Contenido del Proyecto (Archivos):
 - "UserManager.h"
 
 
-## main.cpp:
+## main.cpp
 	* Se realizo la importacion de la siguiente(s) librerias:
 		- iostream
 
